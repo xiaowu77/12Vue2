@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+    input{width:100px;height:35px;border:1px solid blue;}
+    .a{background: white}
+    .b{background: blue;color: white}
+</style>
+<body>
+<div id="demo2">
+    <my-button></my-button>
+</div>
+<script>
+    var myButton = {
+        template:`<div><input type="submit" v-on:mouseover="show" v-on:mouseout="showx" :class="isActive"  :value="tt" @click="btClick()" ></div>`,
+        data(){
+            return {
+                isActive:{
+                    a:true,
+                    b:false
+                },
+                tt:"11",
+            }
+        },
+        methods:{
+            btClick(){
+                alert(this.tt)
+            },
+            show(){
+                this.isActive.a=!this.isActive.a;
+                this.isActive.b=!this.isActive.b;
+            },
+            showx(){
+                this.isActive.a=!this.isActive.a;
+                this.isActive.b=!this.isActive.b;
+            }
+        }
+    }
+    new Vue({
+        el:'#demo2',
+        components:{
+            'my-button':myButton
+        }
+    })
+</script>
+</body>
+</html>

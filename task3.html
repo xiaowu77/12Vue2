@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+        body{margin:0;}
+        ul{margin:0; padding:0; list-style:none; overflow:hidden;}
+        .box{ width:500px; border:1px #000 solid;}
+        li{width:100px; float:left; background-color:#fff; height:50px; line-height:50px; text-align:center; cursor:pointer;}
+        li.active{background-color:#6FF;}
+        .box .content{height:50px; padding:50px;}
+    </style>
+</head>
+<body>
+<div class="box">
+    <demo-tab :cities="cities1" :contents="contents1" :n="n"></demo-tab>
+    <demo-tab :cities="cities2" :contents="contents2" :n="n"></demo-tab>
+</div>
+<script src="vue.js"></script>
+<script>
+    //template : 组件的模板； porops : 组件的形参
+    Vue.component('demo-tab',{
+        props : ['cities','contents','n'],
+        data(){  //组件私有数据，但必须是个函数，必须返回一个对象，既是data数据
+            return {
+                value : this.n
+            }
+        },
+        template:`
+                    <div class="box">
+                        <ul>
+                            <li v-for="city,index of cities" :class="{active:index==value}" @mouseover="choose(index)">{{city}}</li>
+                        </ul>
+                        <div class="content">{{contents[value]}}</div>
+                    </div>
+                  `
+        ,
+        methods : {
+            choose (index){
+                //在vue等框架里，子组件不要修改父组件的数据
+                this.value = index;
+            }
+        }
+    })
+    new Vue({
+        el : ".box",
+        data : {
+            cities1 : ["北京","上海","重庆","广州","西安"],
+            contents1 : ["这是北京","这是上海","这是重庆","这是广州","这是西安"],
+            cities2 : ["前端","后端","设计"],
+            contents2 : ["html+css+js","java+php+node","ps"],
+            n:0
+        }
+    })
+</script>
+</body>
+</html>
